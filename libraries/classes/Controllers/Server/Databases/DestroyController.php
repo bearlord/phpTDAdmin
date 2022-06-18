@@ -79,7 +79,7 @@ final class DestroyController extends AbstractController
 
         foreach ($selected_dbs as $database) {
             $this->relationCleanup->database($database);
-            $aQuery = 'DROP DATABASE ' . Util::backquote($database);
+            $aQuery = 'DROP DATABASE ' . $database;
             $reload = true;
 
             $this->dbi->query($aQuery);

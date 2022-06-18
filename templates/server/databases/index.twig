@@ -135,14 +135,6 @@
                 {% endfor %}
               {% endif %}
 
-              {% if has_primary_replication %}
-                <th>{% trans 'Primary replication' %}</th>
-              {% endif %}
-
-              {% if has_replica_replication %}
-                <th>{% trans 'Replica replication' %}</th>
-              {% endif %}
-
               <th>{% trans 'created_time' %}</th>
               <th>{% trans 'ntables' %}</th>
               <th>{% trans 'vgroups' %}</th>

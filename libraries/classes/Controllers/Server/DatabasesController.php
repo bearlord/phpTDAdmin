@@ -90,11 +90,6 @@ class DatabasesController extends AbstractController
         $this->addScriptFiles(['server/databases.js']);
         $errorUrl = Url::getFromRoute('/');
 
-        if ($this->dbi->isSuperUser()) {
-            $this->dbi->selectDb('mysql');
-        }
-
-
         $primaryInfo['status'] = false;
         $replicaInfo['status'] = false;
 

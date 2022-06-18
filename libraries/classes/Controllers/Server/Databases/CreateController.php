@@ -48,14 +48,12 @@ final class CreateController extends AbstractController
         }
 
         // lower_case_table_names=1 `DB` becomes `db`
-        if ($this->dbi->getLowerCaseNames() === '1') {
-            $params['new_db'] = mb_strtolower($params['new_db']);
-        }
+        $params['new_db'] = mb_strtolower($params['new_db']);
 
         /**
          * Builds and executes the db creation sql query
          */
-        $sqlQuery = 'CREATE DATABASE ' . Util::backquote($params['new_db']);
+        $sqlQuery = 'CREATE DATABASE ' . $params['new_db'];
         if (! empty($params['db_collation'])) {
             [$databaseCharset] = explode('_', $params['db_collation']);
             $charsets = Charsets::getCharsets($this->dbi, $cfg['Server']['DisableIS']);
@@ -68,8 +66,6 @@ final class CreateController extends AbstractController
                     . Util::getCharsetQueryPart($params['db_collation']);
             }
         }
-
-        $sqlQuery .= ';';
 
         $result = $this->dbi->tryQuery($sqlQuery);
 
