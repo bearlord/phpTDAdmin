@@ -59,15 +59,18 @@ class DbiPdoTaos implements DbiExtension
                 : $server['port'];
         }
 
+        $host = $server['host'];
 
-        if ($GLOBALS['cfg']['PersistentConnections']) {
-            $host = 'p:' . $server['host'];
-        } else {
-            $host = $server['host'];
+        $dbh = false;
+
+        try {
+            $dbh = new PDO("taos:host={$host};port={$server['port']}", $user, $password);
+        } catch (\Exception $exception) {
+            trigger_error(
+                $exception->getMessage(),
+                E_USER_ERROR
+            );
         }
-
-
-        $dbh = new PDO("taos:host={$host};port={$server['port']}", $user, $password);
 
         return $dbh;
     }
@@ -209,7 +212,6 @@ class DbiPdoTaos implements DbiExtension
         // the call to getError()
         $GLOBALS['errno'] = $error_number;
 
-        var_dump($error_number, $error_message);
         return Utilities::formatError($error_number, $error_message);
     }
 

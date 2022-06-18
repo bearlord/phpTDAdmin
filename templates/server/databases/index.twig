@@ -99,29 +99,12 @@
               {% endif %}
               <th>
                 <a href="{{ url('/server/databases', url_params|merge({
-                  'sort_by': 'SCHEMA_NAME',
-                  'sort_order': url_params.sort_by == 'SCHEMA_NAME'
+                  'sort_by': 'name',
+                  'sort_order': url_params.sort_by == 'name'
                   and url_params.sort_order == 'asc' ? 'desc' : 'asc'
                 })) }}">
                   {% trans 'Database' %}
-                  {% if url_params.sort_by == 'SCHEMA_NAME' %}
-                    {% if url_params.sort_order == 'asc' %}
-                      {{ get_image('s_asc', 'Ascending'|trans) }}
-                    {% else %}
-                      {{ get_image('s_desc', 'Descending'|trans) }}
-                    {% endif %}
-                  {% endif %}
-                </a>
-              </th>
-
-              <th>
-                <a href="{{ url('/server/databases', url_params|merge({
-                  'sort_by': 'DEFAULT_COLLATION_NAME',
-                  'sort_order': url_params.sort_by == 'DEFAULT_COLLATION_NAME'
-                    and url_params.sort_order == 'asc' ? 'desc' : 'asc'
-                })) }}">
-                  {% trans 'Collation' %}
-                  {% if url_params.sort_by == 'DEFAULT_COLLATION_NAME' %}
+                  {% if url_params.sort_by == 'name' %}
                     {% if url_params.sort_order == 'asc' %}
                       {{ get_image('s_asc', 'Ascending'|trans) }}
                     {% else %}
@@ -160,7 +143,24 @@
                 <th>{% trans 'Replica replication' %}</th>
               {% endif %}
 
-              <th>{% trans 'Action' %}</th>
+              <th>{% trans 'created_time' %}</th>
+              <th>{% trans 'ntables' %}</th>
+              <th>{% trans 'vgroups' %}</th>
+              <th>{% trans 'replica' %}</th>
+              <th>{% trans 'quorum' %}</th>
+              <th>{% trans 'days' %}</th>
+              <th>{% trans 'keep' %}</th>
+              <th>{% trans 'cache(MB)' %}</th>
+              <th>{% trans 'blocks' %}</th>
+              <th>{% trans 'minrows' %}</th>
+              <th>{% trans 'maxrows' %}</th>
+              <th>{% trans 'wallevel' %}</th>
+              <th>{% trans 'fsync' %}</th>
+              <th>{% trans 'comp' %}</th>
+              <th>{% trans 'cachelast' %}</th>
+              <th>{% trans 'precision' %}</th>
+              <th>{% trans 'update' %}</th>
+              <th>{% trans 'status' %}</th>
             </tr>
           </thead>
 
@@ -181,12 +181,6 @@
                     {{- "Jump to database '%s'"|trans|format(database.name) }}">
                     {{ database.name }}
                   </a>
-                </td>
-
-                <td class="value">
-                  <dfn title="{{ database.collation.description }}">
-                    {{ database.collation.name }}
-                  </dfn>
                 </td>
 
                 {% if has_statistics %}
@@ -233,16 +227,24 @@
                   {% endif %}
                 {% endif %}
 
-                <td class="tool">
-                  <a class="server_databases" data="
-                    {{- database.name }}" href="{{ url('/server/privileges', {
-                      'db': database.name,
-                      'checkprivsdb': database.name
-                    }) }}" title="
-                    {{- 'Check privileges for database "%s".'|trans|format(database.name) }}">
-                    {{ get_icon('s_rights', 'Check privileges'|trans) }}
-                  </a>
-                </td>
+                  <td>{{ database.created_time }}</td>
+                  <td>{{ database.ntables }}</td>
+                  <td>{{ database.vgroups }}</td>
+                  <td>{{ database.replica }}</td>
+                  <td>{{ database.quorum }}</td>
+                  <td>{{ database.days }}</td>
+                  <td>{{ database.keep }}</td>
+                  <td>{{ database['cache(MB)'] }}</td>
+                  <td>{{ database.blocks }}</td>
+                  <td>{{ database.minrows }}</td>
+                  <td>{{ database.maxrows }}</td>
+                  <td>{{ database.wallevel }}</td>
+                  <td>{{ database.fsync }}</td>
+                  <td>{{ database.comp }}</td>
+                  <td>{{ database.cachelast }}</td>
+                  <td>{{ database.precision }}</td>
+                  <td>{{ database.update }}</td>
+                  <td>{{ database.status }}</td>
               </tr>
             {% endfor %}
           </tbody>
@@ -255,54 +257,12 @@
                   {{- database_count -}}
                 </span>
               </th>
-
-              {% if has_statistics %}
-                {% for statistic in total_statistics %}
-                  {% if statistic.format is same as('byte') %}
-                    {% set value = format_byte_down(statistic.raw, 3, 1) %}
-                    <th class="value">
-                      <data value="{{ statistic.raw }}" title="{{ statistic.raw }}">
-                        {{ value[0] }}
-                      </data>
-                    </th>
-                    <th class="unit">{{ value[1] }}</th>
-                  {% else %}
-                    <th class="value">
-                      <data value="{{ statistic.raw }}" title="{{ statistic.raw }}">
-                        {{ format_number(statistic.raw, 0) }}
-                      </data>
-                    </th>
-                  {% endif %}
-                {% endfor %}
-              {% endif %}
-
-              {% if has_primary_replication %}
-                <th></th>
-              {% endif %}
-
-              {% if has_replica_replication %}
-                <th></th>
-              {% endif %}
-
-              <th></th>
             </tr>
           </tfoot>
         </table>
       </div>
     </form>
 
-    {% if not has_statistics %}
-      <div class="card">
-        <div class="card-body">
-          <div class="alert alert-info" role="alert">
-            {{ get_icon('s_notice', 'Note: Enabling the database statistics here might cause heavy traffic between the web server and the MySQL server.'|trans) }}
-          </div>
-          <a class="card-link" href="{{ url('/server/databases') }}" data-post="{{ get_common({'statistics': '1'}, '', false) }}" title="{% trans 'Enable statistics' %}">
-            {% trans 'Enable statistics' %}
-          </a>
-        </div>
-      </div>
-    {% endif %}
   {% else %}
     <div class="alert alert-primary my-3" role="alert">
       {{ get_icon('s_notice', 'No databases'|trans) }}

@@ -378,7 +378,7 @@ class DatabaseInterface implements DbalInterface
         bool $tbl_is_group = false,
         int $limit_offset = 0,
         $limit_count = false,
-        string $sort_by = 'Name',
+        string $sort_by = 'name',
         string $sort_order = 'ASC',
         ?string $table_type = null,
         $link = self::CONNECT_USER
@@ -448,7 +448,7 @@ class DatabaseInterface implements DbalInterface
                 }
             }
 
-            if ($sort_by === 'Name' && $GLOBALS['cfg']['NaturalOrder']) {
+            if ($sort_by === 'name' && $GLOBALS['cfg']['NaturalOrder']) {
                 // here, the array's first key is by schema name
                 foreach ($tables as $one_database_name => $one_database_tables) {
                     uksort($one_database_tables, 'strnatcasecmp');
@@ -686,31 +686,13 @@ class DatabaseInterface implements DbalInterface
                 $apply_limit_and_order_manual = false;
             }
 
-            // get table information from information_schema
-            $sqlWhereSchema = '';
-            if ($database !== null) {
-                $sqlWhereSchema = 'WHERE `SCHEMA_NAME` LIKE \''
-                    . $this->escapeString($database, $link) . '\'';
-            }
-
-            $sql = QueryGenerator::getInformationSchemaDatabasesFullRequest(
-                $force_stats,
-                $sqlWhereSchema,
-                $sort_by,
-                $sort_order,
-                $limit
-            );
-
-//            $databases = $this->fetchResult($sql, 'SCHEMA_NAME', null, $link);
-            $databases = $this->fetchResult("show databases", 'name', null, $link);
+            $sql = "show databases";
+            $databases = $this->fetchResult($sql, 'name', null, $link);
 
             $TDengine_error = $this->getError($link);
             if (! count($databases) && isset($GLOBALS['errno'])) {
                 Generator::TDengineDie($TDengine_error, $sql);
             }
-
-//            var_dump($databases, $GLOBALS['dblist']->databases);
-//            die();
 
             // display only databases also in official database list
             // f.e. to apply hide_db and only_db
@@ -725,7 +707,7 @@ class DatabaseInterface implements DbalInterface
             $databases = [];
             foreach ($GLOBALS['dblist']->databases as $database_name) {
                 // Compatibility with INFORMATION_SCHEMA output
-                $databases[$database_name]['SCHEMA_NAME'] = $database_name;
+                $databases[$database_name]['name'] = $database_name;
 
                 $databases[$database_name]['DEFAULT_COLLATION_NAME'] = $this->getDbCollation($database_name);
 
@@ -2257,11 +2239,8 @@ class DatabaseInterface implements DbalInterface
         if ($extension !== null) {
             return new self($extension);
         }
-        if (extension_loaded('pdo_taos') === false) {
 
-        }
-
-        if (! Util::checkDbExtension('TDengine')) {
+        if (! Util::checkDbExtension('pdo_taos')) {
             $docLink = sprintf(
                 __('See %sour documentation%s for more information.'),
                 '[doc@faqTDengine]',

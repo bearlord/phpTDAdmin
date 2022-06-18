@@ -1601,7 +1601,6 @@ class Relation
             'pma__designer_settings' => 'designer_settings',
             'pma__export_templates' => 'export_templates',
         ];
-
         $existingTables = $this->dbi->getTables($db, DatabaseInterface::CONNECT_CONTROL);
 
         /** @var array<string, string> $tableNameReplacements */

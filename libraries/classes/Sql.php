@@ -1719,14 +1719,6 @@ class Sql
             $extraData
         );
 
-        var_dump([
-            $result,
-            $numRows,
-            $unlimNumRows,
-            $profilingResults,
-            $extraData,
-        ]);
-
 //        if ($this->dbi->moreResults()) {
 //            $this->dbi->nextResult();
 //        }

@@ -193,7 +193,6 @@
                   {% trans 'PHP extension:' %}
                   {% for extension in web_server.php_extensions %}
                     {{ extension }}
-                    {{ show_php_docu('book.' ~ extension ~ '.php') }}
                   {% endfor %}
                 </li>
                 <li class="list-group-item">
@@ -219,7 +218,7 @@
             <ul class="list-group list-group-flush">
               <li id="li_pma_version" class="list-group-item{{ is_version_checked ? ' jsversioncheck' }}">
                 {% trans 'Version information:' %}
-                <span class="version">{{ phpmyadmin_version }}</span>
+                <span class="version">{{ phptdadmin_version }}</span>
               </li>
               <li class="list-group-item">
                 <a href="{{ get_docu_link('index') }}" target="_blank" rel="noopener noreferrer">

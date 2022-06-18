@@ -1626,7 +1626,7 @@ class Util
 
         $vars['database'] = $GLOBALS['db'];
         $vars['table'] = $GLOBALS['table'];
-        $vars['phpmyadmin_version'] = 'phpMyAdmin ' . Version::VERSION;
+        $vars['phptdadmin_version'] = 'phpMyAdmin ' . Version::VERSION;
 
         /* Update forced variables */
         foreach ($updates as $key => $val) {
@@ -1648,7 +1648,7 @@ class Util
             '__DB__' => $vars['database'],
             '@TABLE@' => $vars['table'],
             '__TABLE__' => $vars['table'],
-            '@PHPMYADMIN@' => $vars['phpmyadmin_version'],
+            '@PHPMYADMIN@' => $vars['phptdadmin_version'],
         ];
 
         /* Optional escaping */

@@ -483,7 +483,7 @@ final class Common
         if (isset($_POST['set_session']) && $_POST['set_session'] !== session_id()) {
             trigger_error(
                 __(
-                    'Failed to set session cookie. Maybe you are using HTTP instead of HTTPS to access phpMyAdmin.'
+                    'Failed to set session cookie. Maybe you are using HTTP instead of HTTPS to access phpTDAdmin.'
                 ),
                 E_USER_ERROR
             );

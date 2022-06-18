@@ -160,10 +160,10 @@ class DatabasesController extends AbstractController
     private function setSortDetails(?string $sortBy, ?string $sortOrder): void
     {
         if (empty($sortBy)) {
-            $this->sortBy = 'SCHEMA_NAME';
+            $this->sortBy = 'name';
         } else {
             $sortByAllowList = [
-                'SCHEMA_NAME',
+                'name',
                 'DEFAULT_COLLATION_NAME',
                 'SCHEMA_TABLES',
                 'SCHEMA_TABLE_ROWS',
@@ -172,7 +172,7 @@ class DatabasesController extends AbstractController
                 'SCHEMA_LENGTH',
                 'SCHEMA_DATA_FREE',
             ];
-            $this->sortBy = 'SCHEMA_NAME';
+            $this->sortBy = 'name';
             if (in_array($sortBy, $sortByAllowList)) {
                 $this->sortBy = $sortBy;
             }
@@ -230,37 +230,19 @@ class DatabasesController extends AbstractController
                 }
             }
 
-            $statistics = $this->getStatisticsColumns();
-            if ($this->hasStatistics) {
-                foreach (array_keys($statistics) as $key) {
-                    $statistics[$key]['raw'] = $database[$key] ?? null;
-                    $totalStatistics[$key]['raw'] += (int) $database[$key] ?? 0;
-                }
-            }
-
             $url = Util::getScriptNameForOption($cfg['DefaultTabDatabase'], 'database');
             $url .= Url::getCommonRaw(
                 ['db' => $database['name']],
                 ! str_contains($url, '?') ? '?' : '&'
             );
-            $databases[$database['name']] = [
-                'name' => $database['name'],
-                'collation' => [],
-                'statistics' => $statistics,
-                'replication' => $replication,
-                'is_system_schema' => Utilities::isSystemSchema($database['name'], true),
-                'is_pmadb' => $database['name'] === ($cfg['Server']['pmadb'] ?? ''),
-                'url' => $url,
-            ];
-            $collation = null;
-            if ($collation === null) {
-                continue;
-            }
 
-            $databases[$database['SCHEMA_NAME']]['collation'] = [
-                'name' => $collation->getName(),
-                'description' => $collation->getDescription(),
-            ];
+            $databases[$database['name']] = $database;
+            $databases[$database['name']]['name'] = $database['name'];
+            $databases[$database['name']]['collation'] = [];
+            $databases[$database['name']]['replication'] = $replication;
+            $databases[$database['name']]['is_system_schema'] = Utilities::isSystemSchema($database['name'], true);
+            $databases[$database['name']]['is_pmadb'] = $database['name'] === ($cfg['Server']['pmadb'] ?? '');
+            $databases[$database['name']]['url'] = $url;
         }
 
         return [

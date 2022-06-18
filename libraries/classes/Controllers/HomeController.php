@@ -174,7 +174,6 @@ class HomeController extends AbstractController
             ];
         }
 
-        var_dump($this->config);
         $webServer = [];
         if ($cfg['ShowServerInfo']) {
             $webServer['software'] = $_SERVER['SERVER_SOFTWARE'] ?? null;
@@ -243,8 +242,8 @@ class HomeController extends AbstractController
             'web_server' => $webServer,
             'show_php_info' => $cfg['ShowPhpInfo'],
             'is_version_checked' => $cfg['VersionCheck'],
-            'phpmyadmin_version' => Version::VERSION,
-            'phpmyadmin_major_version' => Version::SERIES,
+            'phptdadmin_version' => Version::VERSION,
+            'phptdadmin_major_version' => Version::SERIES,
             'config_storage_message' => $configStorageMessage ?? '',
             'has_theme_manager' => $cfg['ThemeManager'],
             'themes' => $this->themeManager->getThemesArray(),
