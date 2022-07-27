@@ -45,10 +45,6 @@ class SqlController extends AbstractController
         $this->response->addHTML($pageSettings->getHTML());
         $errorUrl = Url::getFromRoute('/');
 
-        if ($this->dbi->isSuperUser()) {
-            $this->dbi->selectDb('mysql');
-        }
-
         $this->response->addHTML($this->sqlQueryForm->getHtml('', ''));
     }
 }

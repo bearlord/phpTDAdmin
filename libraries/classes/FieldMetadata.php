@@ -225,18 +225,18 @@ final class FieldMetadata
      */
     public $internalMediaType;
 
-    public function __construct(int $fieldType, int $fieldFlags, object $field)
+    public function __construct(int $fieldType, int $fieldFlags, array $field)
     {
-            $this->isMultipleKey = (bool) ($fieldFlags & MYSQLI_MULTIPLE_KEY_FLAG);
-            $this->isPrimaryKey = (bool) ($fieldFlags & MYSQLI_PRI_KEY_FLAG);
-            $this->isUniqueKey = (bool) ($fieldFlags & MYSQLI_UNIQUE_KEY_FLAG);
-            $this->isNotNull = (bool) ($fieldFlags & MYSQLI_NOT_NULL_FLAG);
-            $this->isUnsigned = (bool) ($fieldFlags & MYSQLI_UNSIGNED_FLAG);
-            $this->isZerofill = (bool) ($fieldFlags & MYSQLI_ZEROFILL_FLAG);
-            $this->isNumeric = (bool) ($fieldFlags & MYSQLI_NUM_FLAG);
-            $this->isBlob = (bool) ($fieldFlags & MYSQLI_BLOB_FLAG);
-            $this->isEnum = (bool) ($fieldFlags & MYSQLI_ENUM_FLAG);
-            $this->isSet = (bool) ($fieldFlags & MYSQLI_SET_FLAG);
+//            $this->isMultipleKey = (bool) ($fieldFlags & MYSQLI_MULTIPLE_KEY_FLAG);
+//            $this->isPrimaryKey = (bool) ($fieldFlags & MYSQLI_PRI_KEY_FLAG);
+//            $this->isUniqueKey = (bool) ($fieldFlags & MYSQLI_UNIQUE_KEY_FLAG);
+//            $this->isNotNull = (bool) ($fieldFlags & MYSQLI_NOT_NULL_FLAG);
+//            $this->isUnsigned = (bool) ($fieldFlags & MYSQLI_UNSIGNED_FLAG);
+//            $this->isZerofill = (bool) ($fieldFlags & MYSQLI_ZEROFILL_FLAG);
+//            $this->isNumeric = (bool) ($fieldFlags & MYSQLI_NUM_FLAG);
+//            $this->isBlob = (bool) ($fieldFlags & MYSQLI_BLOB_FLAG);
+//            $this->isEnum = (bool) ($fieldFlags & MYSQLI_ENUM_FLAG);
+//            $this->isSet = (bool) ($fieldFlags & MYSQLI_SET_FLAG);
 
             /*
                 MYSQLI_PART_KEY_FLAG => 'part_key',
@@ -250,13 +250,13 @@ final class FieldMetadata
             $this->isMappedTypeGeometry = $this->isType(self::TYPE_GEOMETRY);
             $this->isMappedTypeTimestamp = $this->isType(self::TYPE_TIMESTAMP);
 
-            $this->name = property_exists($field, 'name') ? $field->name : '';
-            $this->orgname = property_exists($field, 'orgname') ? $field->orgname : '';
-            $this->table = property_exists($field, 'table') ? $field->table : '';
-            $this->orgtable = property_exists($field, 'orgtable') ? $field->orgtable : '';
-            $this->charsetnr = property_exists($field, 'charsetnr') ? $field->charsetnr : -1;
-            $this->decimals = property_exists($field, 'decimals') ? $field->decimals : 0;
-            $this->length = property_exists($field, 'length') ? $field->length : 0;
+//            $this->name = property_exists($field, 'name') ? $field->name : '';
+//            $this->orgname = property_exists($field, 'orgname') ? $field->orgname : '';
+//            $this->table = property_exists($field, 'table') ? $field->table : '';
+//            $this->orgtable = property_exists($field, 'orgtable') ? $field->orgtable : '';
+//            $this->charsetnr = property_exists($field, 'charsetnr') ? $field->charsetnr : -1;
+//            $this->decimals = property_exists($field, 'decimals') ? $field->decimals : 0;
+//            $this->length = property_exists($field, 'length') ? $field->length : 0;
 
             // 63 is the number for the MySQL charset "binary"
             $this->isBinary = (

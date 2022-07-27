@@ -1785,7 +1785,7 @@ class DatabaseInterface implements DbalInterface
     public function getLowerCaseNames()
     {
         if ($this->lowerCaseTableNames === null) {
-            $this->lowerCaseTableNames = $this->fetchValue('SELECT @@lower_case_table_names') ?: '';
+            $this->lowerCaseTableNames = 0;
         }
 
         return $this->lowerCaseTableNames;
@@ -2080,7 +2080,7 @@ class DatabaseInterface implements DbalInterface
      */
     public function escapeString(string $str, $link = self::CONNECT_USER)
     {
-        return $str;
+        return "'" . $str . "'";
     }
 
     /**

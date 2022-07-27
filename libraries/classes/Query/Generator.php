@@ -137,7 +137,7 @@ class Generator
         bool $full = false
     ): string {
         return 'SHOW ' . ($full ? 'FULL' : '') . ' COLUMNS FROM '
-            . Util::backquote($database) . '.' . Util::backquote($table)
+            . $database . '.' . Util::backquote($table)
             . ($escapedColumn !== null ? " LIKE '"
                 . $escapedColumn . "'" : '');
     }

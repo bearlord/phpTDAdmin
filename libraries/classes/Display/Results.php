@@ -2815,12 +2815,12 @@ class Results
     private function getRowInfoForSpecialLinks(array $row, $colOrder): array
     {
         $rowInfo = [];
-        $fieldsMeta = $this->properties['fields_meta'];
-
-        for ($n = 0; $n < $this->properties['fields_cnt']; ++$n) {
-            $m = is_array($colOrder) ? $colOrder[$n] : $n;
-            $rowInfo[mb_strtolower($fieldsMeta[$m]->orgname)] = $row[$m];
-        }
+//        $fieldsMeta = $this->properties['fields_meta'];
+//
+//        for ($n = 0; $n < $this->properties['fields_cnt']; ++$n) {
+//            $m = is_array($colOrder) ? $colOrder[$n] : $n;
+//            $rowInfo[mb_strtolower($fieldsMeta[$m]->orgname)] = $row[$m];
+//        }
 
         return $rowInfo;
     }

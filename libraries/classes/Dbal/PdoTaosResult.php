@@ -35,7 +35,7 @@ final class PdoTaosResult implements ResultInterface
     private $result;
 
     /**
-     * @param mysqli_result|bool $result
+     * @param PDOStatement|bool $result
      */
     public function __construct($result)
     {
@@ -267,9 +267,15 @@ final class PdoTaosResult implements ResultInterface
         }
 
         $fields = [];
-        foreach ($this->result->fetch_fields() as $k => $field) {
-            $fields[$k] = new FieldMetadata($field->type, $field->flags, $field);
-        }
+
+//        return $this->result->getColumnMeta(0);
+//        var_dump($this->result->getColumnMeta(0));
+        $field = $this->result->getColumnMeta(0);
+        $fields[] = new FieldMetadata($field['pdo_type'], 0, $field);
+
+//        foreach ($this->result->getColumnMeta(0) as $k => $field) {
+//            $fields[$k] = new FieldMetadata($field['pdo_type'], $field['flags'], $field);
+//        }
 
         return $fields;
     }
