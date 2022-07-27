@@ -80,7 +80,7 @@ class HomeController extends AbstractController
         $errorUrl = Url::getFromRoute('/');
 
         if ($server > 0 && $this->dbi->isSuperUser()) {
-            $this->dbi->selectDb('test');
+//            $this->dbi->selectDb('test');
         }
 
         $languageManager = LanguageManager::getInstance();
@@ -203,19 +203,6 @@ class HomeController extends AbstractController
                     $messageText .= '<br>' .
                         __('Or alternately go to \'Operations\' tab of any database to set it up there.');
                 }
-
-                $messageInstance = Message::notice($messageText);
-                $messageInstance->addParamHtml(
-                    '<a href="' . Url::getFromRoute('/check-relations')
-                    . '" data-post="' . Url::getCommon() . '">'
-                );
-                $messageInstance->addParamHtml('</a>');
-                /* Show error if user has configured something, notice elsewhere */
-                if (! empty($cfg['Servers'][$server]['pmadb'])) {
-                    $messageInstance->isError(true);
-                }
-
-                $configStorageMessage = $messageInstance->getDisplay();
             }
         }
 
@@ -244,7 +231,6 @@ class HomeController extends AbstractController
             'is_version_checked' => $cfg['VersionCheck'],
             'phptdadmin_version' => Version::VERSION,
             'phptdadmin_major_version' => Version::SERIES,
-            'config_storage_message' => $configStorageMessage ?? '',
             'has_theme_manager' => $cfg['ThemeManager'],
             'themes' => $this->themeManager->getThemesArray(),
         ]);

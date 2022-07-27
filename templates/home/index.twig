@@ -221,32 +221,22 @@
                 <span class="version">{{ phptdadmin_version }}</span>
               </li>
               <li class="list-group-item">
-                <a href="{{ get_docu_link('index') }}" target="_blank" rel="noopener noreferrer">
+                <a href="{{ 'https://github.com/phpTDAdmin/phpTDAdmin/wiki' }}" target="_blank" rel="noopener noreferrer">
                   {% trans 'Documentation' %}
                 </a>
               </li>
               <li class="list-group-item">
-                <a href="{{ 'https://www.phpTDAdmin.net/'|link }}" target="_blank" rel="noopener noreferrer">
+                <a href="{{ 'https://github.com/phpTDAdmin/phpTDAdmin/' }}" target="_blank" rel="noopener noreferrer">
                   {% trans 'Official Homepage' %}
                 </a>
               </li>
               <li class="list-group-item">
-                <a href="{{ 'https://www.phpTDAdmin.net/contribute/'|link }}" target="_blank" rel="noopener noreferrer">
-                  {% trans 'Contribute' %}
-                </a>
-              </li>
-              <li class="list-group-item">
-                <a href="{{ 'https://www.phpTDAdmin.net/support/'|link }}" target="_blank" rel="noopener noreferrer">
-                  {% trans 'Get support' %}
-                </a>
-              </li>
-              <li class="list-group-item">
-                <a href="{{ url('/changelog') }}" target="_blank">
+                <a href="{{ 'https://github.com/phpTDAdmin/phpTDAdmin/releases' }}" target="_blank">
                   {% trans 'List of changes' %}
                 </a>
               </li>
               <li class="list-group-item">
-                <a href="{{ url('/license') }}" target="_blank">
+                <a href="{{ 'https://github.com/phpTDAdmin/phpTDAdmin/blob/main/LICENSE' }}" target="_blank">
                   {% trans 'License' %}
                 </a>
               </li>
@@ -280,5 +270,3 @@
     </div>
   </div>
 {% endif %}
-
-{{ config_storage_message|raw }}

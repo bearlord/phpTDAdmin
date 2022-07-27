@@ -160,7 +160,7 @@ class DbiPdoTaos implements DbiExtension
      */
     public function getHostInfo($link)
     {
-        return $link->getServerInfo();
+        return $link->getAttribute(PDO::ATTR_SERVER_VERSION);
     }
 
     /**
@@ -185,7 +185,7 @@ class DbiPdoTaos implements DbiExtension
      */
     public function getClientInfo($link)
     {
-        return $link->getServerInfo();
+        return $link->getAttribute(PDO::ATTR_SERVER_VERSION);
     }
 
     /**
