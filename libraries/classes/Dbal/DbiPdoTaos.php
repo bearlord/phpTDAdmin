@@ -98,6 +98,7 @@ class DbiPdoTaos implements DbiExtension
      */
     public function realQuery(string $query, $link, int $options)
     {
+        var_dump($query);
         $result = $link->query($query, PDO::FETCH_ASSOC);
         if ($result === false) {
             return false;

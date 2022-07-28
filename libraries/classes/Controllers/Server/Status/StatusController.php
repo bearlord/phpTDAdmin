@@ -44,58 +44,55 @@ class StatusController extends AbstractController
 
         $errorUrl = Url::getFromRoute('/');
 
-        if ($this->dbi->isSuperUser()) {
-            $this->dbi->selectDb('mysql');
-        }
 
-        $replicationInfo = $this->data->getReplicationInfo();
-        $primaryInfo = $replicationInfo->getPrimaryInfo();
-        $replicaInfo = $replicationInfo->getReplicaInfo();
-
-        $traffic = [];
-        $connections = [];
-        $replication = '';
-        if ($this->data->dataLoaded) {
-            // In some case the data was reported not to exist, check it for all keys
-            if (isset($this->data->status['Bytes_received'], $this->data->status['Bytes_sent'])) {
-                /** @var string[] $bytes */
-                $bytes = Util::formatByteDown(
-                    $this->data->status['Bytes_received'] + $this->data->status['Bytes_sent'],
-                    3,
-                    1
-                );
-                $networkTraffic = implode(' ', $bytes);
-            }
-
-            if (isset($this->data->status['Uptime'])) {
-                $uptime = Util::timespanFormat($this->data->status['Uptime']);
-            }
-
-            $startTime = Util::localisedDate($this->getStartTime());
-
-            $traffic = $this->getTrafficInfo();
-
-            $connections = $this->getConnectionsInfo();
-
-            if ($primaryInfo['status']) {
-                $replication .= $this->replicationGui->getHtmlForReplicationStatusTable('primary');
-            }
-
-            if ($replicaInfo['status']) {
-                $replication .= $this->replicationGui->getHtmlForReplicationStatusTable('replica');
-            }
-        }
+//        $replicationInfo = $this->data->getReplicationInfo();
+//        $primaryInfo = $replicationInfo->getPrimaryInfo();
+//        $replicaInfo = $replicationInfo->getReplicaInfo();
+//
+//        $traffic = [];
+//        $connections = [];
+//        $replication = '';
+//        if ($this->data->dataLoaded) {
+//            // In some case the data was reported not to exist, check it for all keys
+//            if (isset($this->data->status['Bytes_received'], $this->data->status['Bytes_sent'])) {
+//                /** @var string[] $bytes */
+//                $bytes = Util::formatByteDown(
+//                    $this->data->status['Bytes_received'] + $this->data->status['Bytes_sent'],
+//                    3,
+//                    1
+//                );
+//                $networkTraffic = implode(' ', $bytes);
+//            }
+//
+//            if (isset($this->data->status['Uptime'])) {
+//                $uptime = Util::timespanFormat($this->data->status['Uptime']);
+//            }
+//
+//            $startTime = Util::localisedDate($this->getStartTime());
+//
+//            $traffic = $this->getTrafficInfo();
+//
+//            $connections = $this->getConnectionsInfo();
+//
+//            if ($primaryInfo['status']) {
+//                $replication .= $this->replicationGui->getHtmlForReplicationStatusTable('primary');
+//            }
+//
+//            if ($replicaInfo['status']) {
+//                $replication .= $this->replicationGui->getHtmlForReplicationStatusTable('replica');
+//            }
+//        }
 
         $this->render('server/status/status/index', [
             'is_data_loaded' => $this->data->dataLoaded,
-            'network_traffic' => $networkTraffic ?? null,
-            'uptime' => $uptime ?? null,
-            'start_time' => $startTime ?? null,
-            'traffic' => $traffic,
-            'connections' => $connections,
-            'is_primary' => $primaryInfo['status'],
-            'is_replica' => $replicaInfo['status'],
-            'replication' => $replication,
+//            'network_traffic' => $networkTraffic ?? null,
+//            'uptime' => $uptime ?? null,
+//            'start_time' => $startTime ?? null,
+//            'traffic' => $traffic,
+//            'connections' => $connections,
+//            'is_primary' => $primaryInfo['status'],
+//            'is_replica' => $replicaInfo['status'],
+//            'replication' => $replication,
         ]);
     }
 

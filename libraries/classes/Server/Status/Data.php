@@ -353,6 +353,8 @@ class Data
     public function __construct()
     {
         global $dbi;
+        $this->dataLoaded = true;
+        return;
 
         $this->replicationInfo = new ReplicationInfo($dbi);
         $this->replicationInfo->load($_POST['primary_connection'] ?? null);

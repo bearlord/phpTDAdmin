@@ -31,10 +31,6 @@ class MonitorController extends AbstractController
 
         $errorUrl = Url::getFromRoute('/');
 
-        if ($this->dbi->isSuperUser()) {
-            $this->dbi->selectDb('mysql');
-        }
-
         $this->addScriptFiles([
             'vendor/jquery/jquery.tablesorter.js',
             'jquery.sortable-table.js',

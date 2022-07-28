@@ -551,21 +551,6 @@ class Menu
         $tabs['vars']['text'] = __('Variables');
         $tabs['vars']['active'] = $route === '/server/variables';
 
-        $tabs['charset']['icon'] = 's_asci';
-        $tabs['charset']['route'] = '/server/collations';
-        $tabs['charset']['text'] = __('Charsets');
-        $tabs['charset']['active'] = $route === '/server/collations';
-
-        $tabs['engine']['icon'] = 'b_engine';
-        $tabs['engine']['route'] = '/server/engines';
-        $tabs['engine']['text'] = __('Engines');
-        $tabs['engine']['active'] = $route === '/server/engines';
-
-        $tabs['plugins']['icon'] = 'b_plugin';
-        $tabs['plugins']['route'] = '/server/plugins';
-        $tabs['plugins']['text'] = __('Plugins');
-        $tabs['plugins']['active'] = $route === '/server/plugins';
-
         return $tabs;
     }
 
